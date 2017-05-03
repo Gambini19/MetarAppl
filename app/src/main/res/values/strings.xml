@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MetarAppl</string>
+    <string name="code_of_airport">Airport Code</string>
 </resources>
