@@ -34,16 +34,16 @@ public class Downloader extends AsyncTask<Void, Void, Void> {
                     Log.i("line0  ", line[0]);
                     Log.i("line1  ", line[1]);
                     //data.put(line[0], line[1]);
-                    metarObjects.add(MetarObject.getObj(line[0],line[1]));
+                     metarObjects.add(MetarObject.getObj(line[0],line[1]));
                     count++;
-                    Log.i("obj " , metarObjects.toString());
+                    Log.i("obj " , metarObjects.get(count-1).toString());
                 }
-                if (count == 20) break;
+                if (count == 100) break;
 
             }
             httpUrl.disconnect();
 
-            Log.i ("list", String.valueOf(metarObjects));
+          //  Log.i ("list", String.valueOf(metarObjects));
             //Log.i("metarObjects.size()  ", String.valueOf(metarObjects.size()));
           //  Log.i("metarObjects.get(1)  ", String.valueOf(metarObjects.get(1)));
 

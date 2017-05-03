@@ -1,8 +1,12 @@
 package ru.artemdivin.metarappl;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import java.util.ArrayList;
 
 /**
  * Created by Kondratiy on 30.04.2017.
@@ -10,11 +14,20 @@ import android.widget.BaseAdapter;
 
 public class MetarAdapter extends BaseAdapter {
 
+    Context ctx;
+    LayoutInflater lInflater;
+    private ArrayList<MetarObject> objects;
 
+    public MetarAdapter(Context ctx, ArrayList<MetarObject> objects) {
+        this.ctx = ctx;
+        this.objects = objects;
+        lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+    }
 
     @Override
     public int getCount() {
-        return 0;
+        return objects.size();
     }
 
     @Override
