@@ -42,7 +42,7 @@ public class Downloader extends AsyncTask<Void, Void, ArrayList<MetarObject>>{
                     count++;
                     Log.i("obj " , metarObjects.get(count-1).toString());
                 }
-                if (count == 100) break;
+                if (count == 5) break;
             }
             httpUrl.disconnect();
 
@@ -62,6 +62,7 @@ public class Downloader extends AsyncTask<Void, Void, ArrayList<MetarObject>>{
 
     @Override
     protected void onPostExecute(ArrayList<MetarObject> result) {
+        if (delegate != null)
         delegate.onTaskComplete(metarObjects);
     }
 

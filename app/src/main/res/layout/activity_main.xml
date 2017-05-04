@@ -14,9 +14,9 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/editText"
             android:id="@+id/lv_Information"
-            android:layout_above="@+id/button" />
+            android:layout_above="@+id/button"
+            android:layout_below="@+id/etAirportCode" />
 
         <EditText
             android:layout_width="match_parent"

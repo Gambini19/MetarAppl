@@ -13,7 +13,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public Button btnShowWether;
     public ListView lvInformation;
     public EditText etAirportCode;
-    Downloader downloader = new Downloader();
+
+
+    private Downloader downloader = new Downloader();
+    private ArrayList<MetarObject> list;
+    private MetarAdapter adapter;
+    private AsyncTaskCompleteListner listner;
    
 
     @Override
@@ -21,31 +26,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        listner = this;
+
 
         btnShowWether = (Button)   findViewById(R.id.btnShowWeather);
         lvInformation = (ListView) findViewById(R.id.lv_Information);
         etAirportCode = (EditText) findViewById(R.id.etAirportCode);
 
         btnShowWether.setOnClickListener(this);
-
+        adapter = new MetarAdapter(this);
 
     }
 
     @Override
     public void onClick(View v) {
 
-
-
         downloader.execute();
-
-
-
-
-
+        lvInformation.setAdapter(adapter);
     }
 
     @Override
     public void onTaskComplete(ArrayList<MetarObject> result) {
-        downloader.delegate.onTaskComplete(result);
+        this.list = result;
+
+        // display results of first element
+        if (list != null && list.size() > 0)
+            adapter.updateObject(list.get(0));
+        adapter.notifyDataSetChanged();
     }
+
 }
