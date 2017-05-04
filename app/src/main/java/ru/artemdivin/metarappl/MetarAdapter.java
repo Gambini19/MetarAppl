@@ -19,8 +19,8 @@ public class MetarAdapter extends BaseAdapter {
 
     Context ctx;
     LayoutInflater lInflater;
-    MetarObject metarObject;
-   // HashMap<String,String> ourMap;
+   /* MetarObject metarObject;
+   // HashMap<String,String> ourMap;*/
    private ArrayList<Pair<String,String>> data = new ArrayList<>();
 
     public MetarAdapter(Context ctx) {
@@ -62,21 +62,11 @@ public class MetarAdapter extends BaseAdapter {
         ((TextView)view.findViewById(R.id.meteoValue)).setText(data.get(position).second);
 
 
-
         return view;
     }
 
     public void updateObject (MetarObject metarObject)
     {
-
-       /* if (metarObject.getTermo() != null) ourMap.put("Температура  ", metarObject.getTermo());
-        if (metarObject.getPressure() != null) ourMap.put("Давление  ", metarObject.getPressure());
-        if (metarObject.getWind() != null) ourMap.put("Ветер  ", metarObject.getWind());
-        if (metarObject.getVisibility() != null) ourMap.put("Видимость  ", metarObject.getVisibility());
-        if (metarObject.getCloud() != null) ourMap.put("Облачность  ", metarObject.getCloud());
-*/
-
-
         if (metarObject.getTermo() != null)
             data.add((new Pair<>("Температура  ", metarObject.getTermo())));
         if (metarObject.getPressure() != null)
@@ -90,6 +80,11 @@ public class MetarAdapter extends BaseAdapter {
 
         Log.i ("DATAAA", String.valueOf(data));
 
+    }
+
+    public void clearList (){
+        data.clear();
+        this.notifyDataSetChanged();
     }
 
 

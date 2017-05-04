@@ -11,12 +11,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class Downloader extends AsyncTask<Void, Void, ArrayList<MetarObject>>{
+public class Downloader extends AsyncTask<Void, Void, ArrayList<MetarObject>>  {
 
     //Map<String, String> data = new HashMap<>();
     ArrayList<MetarObject> metarObjects = new ArrayList<>();
 
-    public AsyncTaskCompleteListner delegate = null;
+    private AsyncTaskCompleteListner delegate;
+
+    public Downloader(AsyncTaskCompleteListner delegate) {
+        this.delegate = delegate;
+    }
 
     @Override
     protected ArrayList<MetarObject> doInBackground(Void... params) {
@@ -38,30 +42,23 @@ public class Downloader extends AsyncTask<Void, Void, ArrayList<MetarObject>>{
                     count++;
                     Log.i("obj " , metarObjects.get(count-1).toString());
                 }
-                if (count == 5) break;
+                if (count == 5000) break;
             }
             httpUrl.disconnect();
-
-          //  Log.i ("list", String.valueOf(metarObjects));
-            //Log.i("metarObjects.size()  ", String.valueOf(metarObjects.size()));
-          //  Log.i("metarObjects.get(1)  ", String.valueOf(metarObjects.get(1)));
-
-
 
         } catch (IOException  e) {
             e.printStackTrace();
         }
-        return null;
+        return metarObjects;
     }
 
     @Override
     protected void onPostExecute(ArrayList<MetarObject> result) {
-        //super.onPostExecute(result);
-        if (delegate != null)
-        delegate.onTaskComplete(result);
+        super.onPostExecute(result);
+                   delegate.onTaskComplete(metarObjects);
 
 
-        Log.i("metarObjects  result ", String.valueOf(metarObjects.size()));
-//        Log.i("metarObjects  result2 ", String.valueOf(result.size()));
     }
+
+
 }

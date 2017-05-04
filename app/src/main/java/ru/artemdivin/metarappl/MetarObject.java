@@ -19,6 +19,7 @@ public class MetarObject {
 
 
     public MetarObject(String nameAirport, String termo, String pressure, String wind, String visibility, String cloud) {
+
         this.nameAirport = nameAirport;
         this.termo = termo;
         this.pressure = pressure;
@@ -126,7 +127,7 @@ public class MetarObject {
     @Override
     public String toString() {
         return "MetarObject{" + "\n" +
-                " nameAirport=  '" + nameAirport + '\'' + "\n" +
+                " nameAirport=  " + nameAirport + '\n' + "\n" +
                 "  температура " + getTermo() + "\n" +
                 "  Давление  " + getPressure() + "\n" +
                 "  Ветер  " + getWind() + "\n" +
@@ -134,20 +135,4 @@ public class MetarObject {
                 "  Облачность " + getCloud()+ "\n" +
                 '}';
     }
-
-
-    //public   MetarObject getObj (String codeAirport, String w){
-
-    /*public void create (String meteoString){
-
-        getMeteo(meteoString);
-
-      *//*  return new MetarObject
-                         (codeAirport
-                        ,getTermo()
-                        ,getPressure()
-                        ,getWind()
-                        ,getVisibility()
-                        ,getCloud());*//*
-    }*/
 }

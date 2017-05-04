@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AsyncTaskCompleteListner {
     public Button btnShowWether;
@@ -16,7 +17,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public EditText etAirportCode;
 
 
-    private Downloader downloader = new Downloader();
     private ArrayList<MetarObject> list;
     private MetarAdapter adapter;
     private AsyncTaskCompleteListner listner;
@@ -34,15 +34,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lvInformation = (ListView) findViewById(R.id.lv_Information);
         etAirportCode = (EditText) findViewById(R.id.etAirportCode);
 
+        if (!etAirportCode.getText().toString().equals("")) {
+
+            String codeRequest = etAirportCode.getText().toString();
+
+        }
+
+
         btnShowWether.setOnClickListener(this);
         adapter = new MetarAdapter(this);
-///TESTSTSTSTT
+
     }
 
     @Override
     public void onClick(View v) {
-
-        downloader.execute();
+        new Downloader(listner).execute();
 
     }
 
@@ -50,22 +56,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onTaskComplete(ArrayList<MetarObject> result) {
 
         Log.d("Responseeeee", String.valueOf(result.size()));
-
-        lvInformation.setAdapter(adapter);
-
-
-   /*     listner.onTaskComplete(result);
-        Log.i("result?" , String.valueOf(result));
         this.list = result;
+        if (list.size() > 0) {
 
+            for (int i = 0; i < list.size(); i++) {
+                {
+                    if (Objects.equals(etAirportCode.getText().toString().toUpperCase(), list.get(i).getNameAirport())) {
+                        adapter.clearList();
+                        adapter.updateObject(list.get(i));
+                        adapter.notifyDataSetChanged();
+                        lvInformation.setAdapter(adapter);
+                        break;
+                    }
 
-        Log.i ("LISTTTT", String.valueOf(list).toString());
-
-        // display results of first element
-        if (list != null && list.size() > 0)
-            adapter.updateObject(list.get(0));
-            adapter.notifyDataSetChanged();
-    }*/
-
+                }
+            }
+        }
     }
 }
