@@ -2,6 +2,7 @@ package ru.artemdivin.metarappl;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,7 +10,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, AsyncTaskCompleteListner{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AsyncTaskCompleteListner {
     public Button btnShowWether;
     public ListView lvInformation;
     public EditText etAirportCode;
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<MetarObject> list;
     private MetarAdapter adapter;
     private AsyncTaskCompleteListner listner;
-   
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listner = this;
 
 
-        btnShowWether = (Button)   findViewById(R.id.btnShowWeather);
+        btnShowWether = (Button) findViewById(R.id.btnShowWeather);
         lvInformation = (ListView) findViewById(R.id.lv_Information);
         etAirportCode = (EditText) findViewById(R.id.etAirportCode);
 
@@ -42,17 +43,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         downloader.execute();
-        lvInformation.setAdapter(adapter);
+
     }
 
     @Override
     public void onTaskComplete(ArrayList<MetarObject> result) {
+
+        Log.d("Responseeeee", String.valueOf(result.size()));
+
+        lvInformation.setAdapter(adapter);
+
+
+   /*     listner.onTaskComplete(result);
+        Log.i("result?" , String.valueOf(result));
         this.list = result;
+
+
+        Log.i ("LISTTTT", String.valueOf(list).toString());
 
         // display results of first element
         if (list != null && list.size() > 0)
             adapter.updateObject(list.get(0));
-        adapter.notifyDataSetChanged();
-    }
+            adapter.notifyDataSetChanged();
+    }*/
 
+    }
 }

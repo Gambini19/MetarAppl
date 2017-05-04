@@ -1,6 +1,7 @@
 package ru.artemdivin.metarappl;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,6 +87,8 @@ public class MetarAdapter extends BaseAdapter {
             data.add((new Pair<>("Видимость  ", metarObject.getVisibility())));
         if (metarObject.getCloud() != null)
             data.add((new Pair<>("Облачность  ", metarObject.getCloud())));
+
+        Log.i ("DATAAA", String.valueOf(data));
 
     }
 

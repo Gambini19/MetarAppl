@@ -10,12 +10,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Downloader extends AsyncTask<Void, Void, ArrayList<MetarObject>>{
 
-    Map<String, String> data = new HashMap<>();
+    //Map<String, String> data = new HashMap<>();
     ArrayList<MetarObject> metarObjects = new ArrayList<>();
 
     public AsyncTaskCompleteListner delegate = null;
@@ -35,8 +33,6 @@ public class Downloader extends AsyncTask<Void, Void, ArrayList<MetarObject>>{
                     String[] line = s.split(" ", 2);
                     Log.i("line0  ", line[0]);
                     Log.i("line1  ", line[1]);
-                    //data.put(line[0], line[1]);
-                 //    metarObjects.add(new MetarObject().getObj(line[0],line[1]));
 
                     metarObjects.add(new MetarObject(line[0]).create(line[1]));
                     count++;
@@ -55,16 +51,17 @@ public class Downloader extends AsyncTask<Void, Void, ArrayList<MetarObject>>{
         } catch (IOException  e) {
             e.printStackTrace();
         }
-
-
-        return metarObjects;
+        return null;
     }
 
     @Override
     protected void onPostExecute(ArrayList<MetarObject> result) {
+        //super.onPostExecute(result);
         if (delegate != null)
-        delegate.onTaskComplete(metarObjects);
+        delegate.onTaskComplete(result);
+
+
+        Log.i("metarObjects  result ", String.valueOf(metarObjects.size()));
+//        Log.i("metarObjects  result2 ", String.valueOf(result.size()));
     }
-
 }
-

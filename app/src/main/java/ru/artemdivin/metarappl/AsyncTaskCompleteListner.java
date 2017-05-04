@@ -7,5 +7,5 @@ import java.util.ArrayList;
  */
 
 public interface AsyncTaskCompleteListner  {
-    public void onTaskComplete(ArrayList<MetarObject> result);
+    void onTaskComplete(ArrayList<MetarObject> result);
 }
