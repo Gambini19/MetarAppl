@@ -13,13 +13,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Downloader extends AsyncTask<Void, Void, Void> {
+public class Downloader extends AsyncTask<Void, Void, ArrayList<MetarObject>>{
 
     Map<String, String> data = new HashMap<>();
     ArrayList<MetarObject> metarObjects = new ArrayList<>();
 
+    public AsyncTaskCompleteListner delegate = null;
+
     @Override
-    protected Void doInBackground(Void... params) {
+    protected ArrayList<MetarObject> doInBackground(Void... params) {
 
         HttpURLConnection httpUrl;
         try {
@@ -34,12 +36,13 @@ public class Downloader extends AsyncTask<Void, Void, Void> {
                     Log.i("line0  ", line[0]);
                     Log.i("line1  ", line[1]);
                     //data.put(line[0], line[1]);
-                     metarObjects.add(MetarObject.getObj(line[0],line[1]));
+                 //    metarObjects.add(new MetarObject().getObj(line[0],line[1]));
+
+                    metarObjects.add(new MetarObject(line[0]).create(line[1]));
                     count++;
                     Log.i("obj " , metarObjects.get(count-1).toString());
                 }
                 if (count == 100) break;
-
             }
             httpUrl.disconnect();
 
@@ -54,7 +57,12 @@ public class Downloader extends AsyncTask<Void, Void, Void> {
         }
 
 
-        return null;
+        return metarObjects;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<MetarObject> result) {
+        delegate.onTaskComplete(metarObjects);
     }
 
 }

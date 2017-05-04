@@ -5,15 +5,18 @@ package ru.artemdivin.metarappl;
  */
 
 public class MetarObject {
-    private String nameAirport;
-    private static String termo;
-    private static String pressure;
-    private static String wind;
-    private static String visibility;
-    private static String cloud;
+    public String nameAirport;
+    public String termo;
+    public String pressure;
+    public String wind;
+    public String visibility;
+    public String cloud;
 
-    private static String termoString = null;
-    private static String pressureString = null;
+    public MetarObject(String nameAirport) {
+        this.nameAirport = nameAirport;
+    }
+
+
 
     public MetarObject(String nameAirport, String termo, String pressure, String wind, String visibility, String cloud) {
         this.nameAirport = nameAirport;
@@ -24,12 +27,8 @@ public class MetarObject {
         this.cloud = cloud;
     }
 
-    /*public String GetCode(Map map) {
-        nameAirport = String.valueOf(map.get("EditText Field"));
-        return nameAirport;
-    }*/
 
-    public static void  getMeteo(String line) {
+    public MetarObject create(String line) {
        // line = "KMYJ 021355Z AUTO 27013G17KT 10SM CLR 10/05 A2988 RMK AO2 ";
         String[] masData = line.split(" ");
 
@@ -58,8 +57,6 @@ public class MetarObject {
                 setWind("Спокойный ветер");
             else if (s.matches("VBR\\d\\dMPS"))setWind("Направление ветра меняется");
 
-
-
             //Видимость
             if ( s.matches("\\d{4}")) setVisibility(s);
             else if (s.matches("\\d{2}SM"))setVisibility(s.substring(0,2) + " Сухопутных миль");
@@ -74,82 +71,57 @@ public class MetarObject {
             //else return cloud = "нет информации";
 
         }
+        return this;
     }
 
-    public static void setTermo(String termo) {
-        MetarObject.termo = termo;
+    public String getNameAirport() {
+        return nameAirport;
     }
 
-    public static void setPressure(String pressure) {
-        MetarObject.pressure = pressure;
+    public void setNameAirport(String nameAirport) {
+        this.nameAirport = nameAirport;
     }
 
-    public static void setWind(String wind) {
-        MetarObject.wind = wind;
-    }
-
-    public static void setVisibility(String visibility) {
-        MetarObject.visibility = visibility;
-    }
-
-    public static void setCloud(String cloud) {
-        MetarObject.cloud = cloud;
-    }
-
-    public static void setTermoString(String termoString) {
-        MetarObject.termoString = termoString;
-    }
-
-    public static void setPressureString(String pressureString) {
-        MetarObject.pressureString = pressureString;
-    }
-
-    public static String getTermo() {
+    public String getTermo() {
         return termo;
     }
 
-    public static String getPressure() {
+    public void setTermo(String termo) {
+        this.termo = termo;
+    }
+
+    public String getPressure() {
         return pressure;
     }
 
-    public static String getWind() {
+    public void setPressure(String pressure) {
+        this.pressure = pressure;
+    }
+
+    public String getWind() {
         return wind;
     }
 
-    public static String getVisibility() {
+    public void setWind(String wind) {
+        this.wind = wind;
+    }
+
+    public String getVisibility() {
         return visibility;
     }
 
-    public static String getCloud() {
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
+    }
+
+    public String getCloud() {
         return cloud;
     }
 
-    public static String getTermoString() {
-        return termoString;
+    public void setCloud(String cloud) {
+        this.cloud = cloud;
     }
 
-    public static String getPressureString() {
-        return pressureString;
-    }
-
-    public static   MetarObject getObj (String codeAirport, String w){
-        /*nameAirport = String.valueOf(map.get("EditText Field"));
-        getMeteo(map.get(nameAirport));*/
-       /* setCloud(getMeteo(w));
-        setTermo((getMeteo(w)));
-        setPressure((getMeteo(w)));
-        setVisibility(getMeteo(w));
-        setWind(getMeteo(w));*/
-        getMeteo(w);
-
-        return new MetarObject
-                        (codeAirport
-                        ,getTermo()
-                        ,getPressure()
-                        ,getWind()
-                        ,getVisibility()
-                        ,getCloud());
-    }
 
     @Override
     public String toString() {
@@ -162,4 +134,20 @@ public class MetarObject {
                 "  Облачность " + getCloud()+ "\n" +
                 '}';
     }
+
+
+    //public   MetarObject getObj (String codeAirport, String w){
+
+    /*public void create (String meteoString){
+
+        getMeteo(meteoString);
+
+      *//*  return new MetarObject
+                         (codeAirport
+                        ,getTermo()
+                        ,getPressure()
+                        ,getWind()
+                        ,getVisibility()
+                        ,getCloud());*//*
+    }*/
 }
