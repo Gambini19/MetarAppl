@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnShowWether.setOnClickListener(this);
         adapter = new MetarAdapter(this);
-
+///TESTSTSTSTT
     }
 
     @Override
