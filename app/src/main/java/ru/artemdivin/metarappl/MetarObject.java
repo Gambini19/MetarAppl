@@ -127,7 +127,7 @@ public class MetarObject {
     @Override
     public String toString() {
         return "MetarObject{" + "\n" +
-                " nameAirport=  " + nameAirport + '\n' + "\n" +
+                " nameAirport=  " + nameAirport + '\n' +
                 "  температура " + getTermo() + "\n" +
                 "  Давление  " + getPressure() + "\n" +
                 "  Ветер  " + getWind() + "\n" +
