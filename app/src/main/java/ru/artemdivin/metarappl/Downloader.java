@@ -55,10 +55,13 @@ public class Downloader extends AsyncTask<String, Void, ArrayList<MetarObject>> 
             while ((line = reader.readLine()) != null) {
                 if (line.matches(".+\\d{2}Z.TXT.+")) {
                     name = line.substring(17, 24);
+                   /* Log.d("LINE", line);
+                    Log.d("LINE", line.substring(105,106));*/
 
                     milisec = sdf.parse(line.substring(60, 77)).getTime();
+                    if(line.substring(105,106).equals("M")){
                     tMap.put(name, milisec);
-                    if (max < milisec) max = milisec;
+                    if (max < milisec) max = milisec;}
                 }
             }
 
@@ -90,12 +93,12 @@ public class Downloader extends AsyncTask<String, Void, ArrayList<MetarObject>> 
             String code = params[0];
             Log.d("code", code);
             StringBuilder stringBuilder = new StringBuilder();
-          //  StringBuilder stringBuilder2 = new StringBuilder();
+            StringBuilder stringBuilder2 = new StringBuilder();
 
             int x;
             while ((x = f.read()) != -1) {
-            //    stringBuilder2.append(x);
-//                stringBuilder.append((char) x);
+                stringBuilder2.append(x);
+                stringBuilder.append((char) x);
 
 
                 if (x == 10 && stringBuilder.length() != 0)
@@ -106,11 +109,11 @@ public class Downloader extends AsyncTask<String, Void, ArrayList<MetarObject>> 
                     if (code.equals(lineReader[0])) {
                         metarObjects.add(new MetarObject(lineReader[0]).create(stringBuilder.toString()));
                         stringBuilder.setLength(0);
-//                        stringBuilder2.setLength(0);
+                        stringBuilder2.setLength(0);
                         return metarObjects;
                     }
                     stringBuilder.setLength(0);
-  //                  stringBuilder2.setLength(0);
+                    stringBuilder2.setLength(0);
                 }
             }
             httpUrl.disconnect();
