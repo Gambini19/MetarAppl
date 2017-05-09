@@ -1,5 +1,7 @@
 package ru.artemdivin.metarappl;
 
+import android.util.Log;
+
 /**
  * Created by Kondratiy on 30.04.2017.
  */
@@ -11,6 +13,7 @@ public class MetarObject {
     public String wind;
     public String visibility;
     public String cloud;
+    final static String defaultStatus  = "Нет информации";
 
     public MetarObject(String nameAirport) {
         this.nameAirport = nameAirport;
@@ -32,29 +35,40 @@ public class MetarObject {
     public MetarObject create(String line) {
        // line = "KMYJ 021355Z AUTO 27013G17KT 10SM CLR 10/05 A2988 RMK AO2 ";
         String[] masData = line.split(" ");
+       /* setCloud(defaultStatus);
+        setWind(defaultStatus);
+        setVisibility(defaultStatus);
+        setTermo(defaultStatus);
+        setPressure(defaultStatus);*/
 
 
         for (String s : masData
                 ) {
+            Log.d ("s", s );
             //Температура
             if (s.matches("\\d\\d/\\d\\d")) setTermo(s.substring(0, 2) + " C");
+            else if (s.matches("M?\\d\\d/M?\\d\\d"))  setTermo("-" + s.substring(1,3)+ " C");
             else if (s.matches("M\\d\\d/M?\\d\\d"))  setTermo("-" + s.substring(1,3)+ " C");
+            else if (s.matches("\\d\\d/MM"))  setTermo(s.substring(0,2)+ " C");
 
             //Давление
             /*if (s.matches("Q\\d{4}")) pressure = Integer.parseInt(s.substring(1,6));
             else if (s.matches("A\\d{4}")) pressure= (int) (Integer.parseInt(s.substring(1,6))*(0.3386));*/
 
-            if (s.matches("Q\\d{4}")) setPressure(s.substring(1,5) + "hPa");
-            else if (s.matches("A\\d{4}")) setPressure (s.substring(1,3)+","+s.substring(3,5)+ " дюймов ртутного столба");
+            if (s.matches("Q\\d{4}?")) setPressure(s.substring(1,5) + "hPa");
+            else  if (s.matches("A\\d{4}?")) setPressure (s.substring(1,3)+","+s.substring(3,5)+ " дюймов рт.ст.");
 
             //Ветер
             if (s.matches("\\d{5}MPS"))
                 setWind(String.format("%s узлов %s градусов",s.substring(3,5),s.substring(0,3)));
-            else if (s.matches("\\d{5}KT"))
+            else if (s.matches("\\d{5}KT")) +?
+
+
+                    
                 setWind(String.format("%s узлов %s градусов",s.substring(3,5),s.substring(0,3)));
-            if (s.matches("\\d{5}...KT"))
-                setWind(String.format("%s узлов %s градусов. Ветер меняется",s.substring(3,5),s.substring(0,3)));
-            if (s.matches("00000KT"))
+            else if (s.matches("\\d{5}...KT"))
+                setWind(String.format("%s узлов %s градусов. \n Ветер меняется",s.substring(3,5),s.substring(0,3)));
+            else if (s.matches("00000KT"))
                 setWind("Спокойный ветер");
             else if (s.matches("VBR\\d\\dMPS"))setWind("Направление ветра меняется");
 

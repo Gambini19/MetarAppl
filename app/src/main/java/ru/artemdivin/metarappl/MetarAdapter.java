@@ -17,17 +17,13 @@ import java.util.ArrayList;
 
 public class MetarAdapter extends BaseAdapter {
 
-    Context ctx;
-    LayoutInflater lInflater;
-   /* MetarObject metarObject;
-   // HashMap<String,String> ourMap;*/
-   private ArrayList<Pair<String,String>> data = new ArrayList<>();
+    public  Context ctx;
+    private LayoutInflater lInflater;
+    private ArrayList<Pair<String,String>> data = new ArrayList<>();
 
     public MetarAdapter(Context ctx) {
         this.ctx = ctx;
-     //   this.metarObject = objects;
         lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
     }
 
 

@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -15,11 +17,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public Button btnShowWether;
     public ListView lvInformation;
     public EditText etAirportCode;
+    public ProgressBar pbarDowload;
 
 
     private ArrayList<MetarObject> list;
     private MetarAdapter adapter;
     private AsyncTaskCompleteListner listner;
+
+    ConnectionDetector detector;
 
 
     @Override
@@ -33,27 +38,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnShowWether = (Button) findViewById(R.id.btnShowWeather);
         lvInformation = (ListView) findViewById(R.id.lv_Information);
         etAirportCode = (EditText) findViewById(R.id.etAirportCode);
-
-        if (!etAirportCode.getText().toString().equals("")) {
-
-            String codeRequest = etAirportCode.getText().toString();
-
-        }
+        pbarDowload = (ProgressBar) findViewById(R.id.pbar);
 
 
         btnShowWether.setOnClickListener(this);
         adapter = new MetarAdapter(this);
 
+        detector = new ConnectionDetector(this);
+
     }
 
     @Override
     public void onClick(View v) {
-        new Downloader(listner).execute();
+
+        if (detector.isConnectingToInternet()) {
+
+
+            String codeRequest = etAirportCode.getText().toString().toUpperCase();
+            Log.d("codereq", codeRequest);
+            if (codeRequest != null)
+                new Downloader(listner).execute(codeRequest);
+            pbarDowload.setVisibility(View.VISIBLE);
+            btnShowWether.setClickable(false);
+
+        }
+
+        else Toast.makeText(this, "Нет подключения к интернету", Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void onTaskComplete(ArrayList<MetarObject> result) {
+
+        pbarDowload.setVisibility(View.INVISIBLE);
+        btnShowWether.setClickable(true);
 
         Log.d("Responseeeee", String.valueOf(result.size()));
         this.list = result;
@@ -72,5 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
+        else Toast.makeText(this, "Аэропорт с таким кодом не найден", Toast.LENGTH_SHORT).show();
     }
 }
