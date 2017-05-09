@@ -55,17 +55,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             String codeRequest = etAirportCode.getText().toString().toUpperCase();
-            Log.d("codereq", codeRequest);
-            if (codeRequest != null)
+            if (!codeRequest.equals("")) {
                 new Downloader(listner).execute(codeRequest);
-            pbarDowload.setVisibility(View.VISIBLE);
-            btnShowWether.setClickable(false);
+                pbarDowload.setVisibility(View.VISIBLE);
+                btnShowWether.setClickable(false);
+            }
+            else Toast.makeText(this, "введите код аэропорта", Toast.LENGTH_SHORT).show();
 
         }
 
-        else Toast.makeText(this, "Нет подключения к интернету", Toast.LENGTH_SHORT).show();
-
-    }
+        else Toast.makeText(this, "Нет подключения к интернету", Toast.LENGTH_SHORT).show();}
 
     @Override
     public void onTaskComplete(ArrayList<MetarObject> result) {
@@ -73,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pbarDowload.setVisibility(View.INVISIBLE);
         btnShowWether.setClickable(true);
 
-        Log.d("Responseeeee", String.valueOf(result.size()));
         this.list = result;
         if (list.size() > 0) {
 

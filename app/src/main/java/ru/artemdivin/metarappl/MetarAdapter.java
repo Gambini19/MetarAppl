@@ -11,9 +11,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Kondratiy on 30.04.2017.
- */
 
 public class MetarAdapter extends BaseAdapter {
 
@@ -73,8 +70,6 @@ public class MetarAdapter extends BaseAdapter {
             data.add((new Pair<>("Видимость  ", metarObject.getVisibility())));
         if (metarObject.getCloud() != null)
             data.add((new Pair<>("Облачность  ", metarObject.getCloud())));
-
-        Log.i ("DATAAA", String.valueOf(data));
 
     }
 
