@@ -59,12 +59,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Downloader(listner).execute(codeRequest);
                 pbarDowload.setVisibility(View.VISIBLE);
                 btnShowWether.setClickable(false);
-            }
-            else Toast.makeText(this, "введите код аэропорта", Toast.LENGTH_SHORT).show();
+            } else Toast.makeText(this, "введите код аэропорта", Toast.LENGTH_SHORT).show();
 
-        }
-
-        else Toast.makeText(this, "Нет подключения к интернету", Toast.LENGTH_SHORT).show();}
+        } else Toast.makeText(this, "Нет подключения к интернету", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void onTaskComplete(ArrayList<MetarObject> result) {
@@ -87,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
-        }
-        else Toast.makeText(this, "Аэропорт с таким кодом не найден", Toast.LENGTH_SHORT).show();
+        } else Toast.makeText(this, "Аэропорт с таким кодом не найден", Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,7 +1,6 @@
 package ru.artemdivin.metarappl;
 
 import android.content.Context;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +13,9 @@ import java.util.ArrayList;
 
 public class MetarAdapter extends BaseAdapter {
 
-    public  Context ctx;
+    public Context ctx;
     private LayoutInflater lInflater;
-    private ArrayList<Pair<String,String>> data = new ArrayList<>();
+    private ArrayList<Pair<String, String>> data = new ArrayList<>();
 
     public MetarAdapter(Context ctx) {
         this.ctx = ctx;
@@ -45,21 +44,19 @@ public class MetarAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View view = convertView;
-        if (view == null)
-        {
-            view = lInflater.inflate(R.layout.list_layout,parent, false);
+        if (view == null) {
+            view = lInflater.inflate(R.layout.list_layout, parent, false);
         }
 
 
-        ((TextView)view.findViewById(R.id.meteoKey)).setText(data.get(position).first);
-        ((TextView)view.findViewById(R.id.meteoValue)).setText(data.get(position).second);
+        ((TextView) view.findViewById(R.id.meteoKey)).setText(data.get(position).first);
+        ((TextView) view.findViewById(R.id.meteoValue)).setText(data.get(position).second);
 
 
         return view;
     }
 
-    public void updateObject (MetarObject metarObject)
-    {
+    public void updateObject(MetarObject metarObject) {
         if (metarObject.getTermo() != null)
             data.add((new Pair<>("Температура  ", metarObject.getTermo())));
         if (metarObject.getPressure() != null)
@@ -73,7 +70,7 @@ public class MetarAdapter extends BaseAdapter {
 
     }
 
-    public void clearList (){
+    public void clearList() {
         data.clear();
         this.notifyDataSetChanged();
     }

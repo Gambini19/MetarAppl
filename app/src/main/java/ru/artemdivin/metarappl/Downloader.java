@@ -44,7 +44,7 @@ public class Downloader extends AsyncTask<String, Void, ArrayList<MetarObject>> 
             httpUrl = (HttpURLConnection) netURL.openConnection();
             InputStream f = httpUrl.getInputStream();
             String code = params[0];
-        //    Log.d("code", code);
+            //    Log.d("code", code);
             StringBuilder stringBuilder = new StringBuilder();
 
             int readingByte;
