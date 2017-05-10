@@ -1,11 +1,5 @@
 package ru.artemdivin.metarappl;
 
-import android.util.Log;
-
-/**
- * Created by Kondratiy on 30.04.2017.
- */
-
 public class MetarObject {
     public String nameAirport;
     public String termo;
@@ -32,7 +26,7 @@ public class MetarObject {
 
         for (String s : masData
                 ) {
-            Log.d("s", s);
+           // Log.d("s", s);
 
             //Температура
             if (s.matches("\\d\\d/M?\\d\\d")) setTermo(s.substring(0, 2) + " C");
