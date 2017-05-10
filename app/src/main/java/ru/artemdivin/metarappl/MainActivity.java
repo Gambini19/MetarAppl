@@ -2,7 +2,6 @@ package ru.artemdivin.metarappl;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             String codeRequest = etAirportCode.getText().toString().toUpperCase();
             if (!codeRequest.equals("")) {
+                adapter.clearList();
                 new Downloader(listner).execute(codeRequest);
                 pbarDowload.setVisibility(View.VISIBLE);
                 btnShowWether.setClickable(false);
